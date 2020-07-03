@@ -22,15 +22,11 @@ c = configs["coef"]
 elev = np.empty((height, width))
 for y in range(height):
     for x in range(width):
-        nx = x / width - 0.5
-        ny = y / height - 0.5
-        e = (
-            noise(c * nx, c * ny)
-            + 0.5 * noise(c * 2 * nx, c * 2 * ny)
-            + 0.25 * noise(c * 4 * nx, c * 4 * ny)
-        )
+        nx = (x / width - 0.5) * c
+        ny = (y / height - 0.5) * c
+        e = noise(nx, ny) + 0.5 * noise(2 * nx, 2 * ny) + 0.25 * noise(4 * nx, 4 * ny)
         elev[y, x] = e
-elev = elev ** 1.6
+elev **= 1.6
 emin = elev.flatten().min()
 elev -= emin
 emax = elev.flatten().max()
