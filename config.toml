@@ -1,2 +1,5 @@
-height = 50
-width = 50
+height = 100
+width = 100
+coef = 8
+map_cm_colorcode = ["#3E60C1", "#597BF0", "#74A963", "#3E7E62", "#3E7E62", "#A5BD7E", "#A5BD7E", "#BFD2AF", "#BFD2AF", "#D0D2D2",]
+visiblity_cm_colorcode = ["#FFFFFF", "#FFCDCD", "#FF0000",]

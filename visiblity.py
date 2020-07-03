@@ -4,31 +4,24 @@ import toml
 from bresenham import bresenham
 from matplotlib.colors import LinearSegmentedColormap
 
-list_cid1 = [
-    "#3E60C1",
-    "#597BF0",
-    "#74A963",
-    "#3E7E62",
-    "#3E7E62",
-    "#A5BD7E",
-    "#A5BD7E",
-    "#BFD2AF",
-    "#BFD2AF",
-    "#D0D2D2",
-]
-list_cid2 = [
-    "#FFFFFF",
-    "#FFCDCD",
-    "#FF0000",
-]
-cm1 = LinearSegmentedColormap.from_list("custom_cmap", list_cid1, N=len(list_cid1))
-cm2 = LinearSegmentedColormap.from_list("custom_cmap", list_cid2, N=len(list_cid2))
+configs = toml.load("config.toml")
+height = configs["height"]
+width = configs["width"]
+
+map_cm_colorcode = configs["map_cm_colorcode"]
+visiblity_cm_colorcode = configs["visiblity_cm_colorcode"]
+cm1 = LinearSegmentedColormap.from_list(
+    "custom_cmap", map_cm_colorcode, N=len(map_cm_colorcode)
+)
+cm2 = LinearSegmentedColormap.from_list(
+    "custom_cmap", visiblity_cm_colorcode, N=len(visiblity_cm_colorcode)
+)
 
 e = np.load("map.npy")
 
 e[e < 0.1] = 0
-e[np.logical_and(0.1 <= e, e < 0.2)] = 0.1
-e[np.logical_and(0.2 <= e, e < 0.3)] = 0.2
+e[np.logical_and(0.1 <= e, e < 0.2)] = 0.15
+e[np.logical_and(0.2 <= e, e < 0.3)] = 0.25
 e[np.logical_and(0.3 <= e, e < 0.5)] = 0.4
 e[np.logical_and(0.5 <= e, e < 0.7)] = 0.6
 e[np.logical_and(0.7 <= e, e < 0.9)] = 0.8
@@ -44,7 +37,6 @@ def visiblity(b, vis, elev_obs):
 
 
 def generate_visiblity_map(*pos_obs):
-
     vis = np.zeros((height, width))
     elev_obs = e[pos_obs]
     vis[pos_obs] = 1
@@ -67,10 +59,6 @@ def generate_visiblity_map(*pos_obs):
     vis[vis > 0.1] = 1
     return vis
 
-
-configs = toml.load("config.toml")
-height = configs["height"]
-width = configs["width"]
 
 generate_visiblity_map(0, 0)
 generate_visiblity_map((int)(width / 2), (int)(height / 2))
