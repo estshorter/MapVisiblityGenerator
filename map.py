@@ -4,7 +4,7 @@ from matplotlib.colors import LinearSegmentedColormap
 from opensimplex import OpenSimplex
 
 # https://www.redblobgames.com/maps/terrain-from-noise/
-
+# https://qiita.com/HidKamiya/items/524d77e3b53a13849f1a
 gen = OpenSimplex()
 
 
