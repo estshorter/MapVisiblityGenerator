@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import toml
 from matplotlib.colors import LinearSegmentedColormap
 
 list_cid = [
@@ -15,8 +16,9 @@ list_cid = [
     "#D0D2D2",
 ]
 
-height = 200
-width = 200
+configs = toml.load("config.toml")
+height = configs["height"]
+width = configs["width"]
 elev = np.load("map.npy")
 cm = LinearSegmentedColormap.from_list("custom_cmap", list_cid, N=len(list_cid))
 

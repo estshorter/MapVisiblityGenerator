@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import toml
 from matplotlib.colors import LinearSegmentedColormap
 from opensimplex import OpenSimplex
 
@@ -26,8 +27,9 @@ list_cid = [
     "#D0D2D2",
 ]
 
-height = 200
-width = 200
+configs = toml.load("config.toml")
+height = configs["height"]
+width = configs["width"]
 c = 8
 
 elev = np.empty((height, width))

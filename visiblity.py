@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import toml
 from bresenham import bresenham
 from matplotlib.colors import LinearSegmentedColormap
 
@@ -67,9 +68,10 @@ def generate_visiblity_map(*pos_obs):
     return vis
 
 
-height = 200
-width = 200
+configs = toml.load("config.toml")
+height = configs["height"]
+width = configs["width"]
 
 generate_visiblity_map(0, 0)
-generate_visiblity_map(100, 100)
-generate_visiblity_map(110, 110)
+generate_visiblity_map((int)(width / 2), (int)(height / 2))
+generate_visiblity_map((int)(width / 1.82), (int)(height / 1.82))
