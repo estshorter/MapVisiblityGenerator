@@ -6,18 +6,19 @@ from opensimplex import OpenSimplex
 
 # https://www.redblobgames.com/maps/terrain-from-noise/
 # https://qiita.com/HidKamiya/items/524d77e3b53a13849f1a
-gen = OpenSimplex()
+
+configs = toml.load("config.toml")
+height = configs["height"]
+width = configs["width"]
+c = configs["coef"]
+
+gen = OpenSimplex(configs["seed"])
 
 
 def noise(nx, ny):
     # Rescale from -1.0:+1.0 to 0.0:1.0
     return gen.noise2d(nx, ny) / 2.0 + 0.5
 
-
-configs = toml.load("config.toml")
-height = configs["height"]
-width = configs["width"]
-c = configs["coef"]
 
 elev = np.empty((height, width))
 for y in range(height):
